@@ -1,6 +1,6 @@
 <script>
   import * as d3 from "d3"
-  import {onMount} from "svelte"
+  import { onMount } from "svelte"
 
   /* Array donde guardaremos la data */
   let deportistas = []
@@ -21,26 +21,23 @@
     .range(["#ed334e", "#000000", "#fbb132", "#009fe3", "#00963f"])
 
   /* 4. Area. Escala para diámetro del círculo */
-  let diametroTotal = d3.scaleRadial().range([0, 100])
+  let diamMedallas = d3.scaleRadial().range([0, 100])
 
   onMount(async () => {
-
     /* Consumimos la data */
     const data = await d3.csv("./data/athletes.csv", d3.autoType)
     console.log("data", data)
 
     /* Actualizamos dominio con la data de participaciones */
-    let minMaxParticipations = d3.extent(data, d => d.participations)
+    let minMaxParticipations = d3.extent(data, (d) => d.participations)
     grosorPartic = grosorPartic.domain(minMaxParticipations)
 
-    /* Actualizamos el dominio con la data de total de medallas */
-    let maxTotal = d3.max(data, d => d.total)
-    diametroTotal = diametroTotal.domain([0, maxTotal])
+    /* Actualizamos el dominio con la data de las medallas */
+    let maxMedallas = d3.max(data, (d) => d.medallas)
+    diamMedallas = diamMedallas.domain([0, maxMedallas])
 
     deportistas = data
   })
-
-
 </script>
 
 <main>
@@ -53,11 +50,15 @@
     <p class="bajada">
       Los atletas con más medallas olímpicas de oro en los Juegos Olímpicos
     </p>
-    <img class="referencias" src="/images/referencias.svg" width="490" alt="anillos" />
+    <img
+      class="referencias"
+      src="/images/referencias.svg"
+      width="490"
+      alt="anillos"
+    />
   </div>
 
   <div class="container">
-
     <!-- Conedor de las entidades -->
     <div class="container">
       <!-- Iteramos la data para visualizar c/ entidad -->
@@ -67,30 +68,12 @@
             class="person"
             style="border-width: {grosorPartic(dep.participations)}px; 
         background-color:{colorGenero(dep.gender)}; 
-        width: {diametroTotal(dep.total)}px; 
-        height: {diametroTotal(dep.total)}px; 
+        width: {diamMedallas(dep.medallas)}px; 
+        height: {diamMedallas(dep.medallas)}px; 
         border-color: {colorContinentes(dep.continent)}"
           ></div>
-
-          <div class="medals-wrapper">
-            {#if dep.gold > 0}
-              <div class="medal gold">{dep.gold}</div>
-            {/if}
-            {#if dep.silver > 0}
-              <div class="medal silver">{dep.silver}</div>
-            {/if}
-            {#if dep.bronze > 0}
-              <div class="medal bronze">{dep.bronze}</div>
-            {/if}
-          </div>
-
-          <p class="atleta">
-            <b class="name">{dep.name}</b>
-            <br />
-            {dep.country}
-            <br />
-            {dep.sport}
-          </p>
+          <p class="nombre">{dep.name}</p>
+          <p class="deporte">{dep.sport}</p>
         </div>
       {/each}
     </div>
@@ -147,44 +130,18 @@
     box-sizing: border-box;
     background-color: pink;
   }
-
-  .medals-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-  }
-  .medal {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    margin: 5px 0;
-    font-size: 12px;
+  .nombre {
+    font-size: 13px;
     font-weight: bold;
     line-height: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .gold {
-    background-color: gold;
-  }
-  .silver {
-    background-color: silver;
-  }
-  .bronze {
-    background-color: #e08585;
-  }
-  .atleta {
-    font-size: 13px;
-    line-height: 1.3;
-    color: rgb(65, 65, 65);
-    font-weight: normal;
-    text-align: center;
-    margin-top: 5px;
-  }
-  .name {
     text-transform: uppercase;
+    margin: 0;
+    margin-top: 8px;
+  }
+  .deporte {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
   }
   .referencias {
     margin-top: 50px;

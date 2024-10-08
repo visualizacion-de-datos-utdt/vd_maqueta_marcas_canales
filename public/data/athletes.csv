@@ -1,41 +1,41 @@
-name,country,continent,sport,years,participations,gender,gold,silver,bronze,total
-Michael Phelps,Estados Unidos,América,Natación,2004-2016,4,M,23,3,2,28
-Larisa Latynina,Unión Soviética,Europa,Gimnasia,1956-1964,3,F,9,5,4,18
-Nikolai Andrianov,Unión Soviética,Europa,Gimnasia,1972-1980,3,M,7,5,3,15
-Katie Ledecky,Estados Unidos,América,Natación,2012-2024,4,F,9,4,1,14
-Isabell Werth,Alemania,Europa,Equitación,1992-2024,9,F,8,6,0,14
-Emma McKeon,Australia,Oceanía,Natación,2016-2024,3,F,6,3,5,14
-Boris Shakhlin,Unión Soviética,Europa,Gimnasia,1956-1964,3,M,7,4,2,13
-Edoardo Mangiarotti,Italia,Europa,Esgrima,1936-1960,7,M,6,5,2,13
-Paavo Nurmi,Finlandia,Europa,Atletismo,1920-1928,3,M,9,3,0,12
-Birgit Fischer,Alemania,Europa,Piragüismo,1980-2004,7,F,8,4,0,12
-Sawao Kato,Japón,Asia,Gimnasia,1968-1976,3,M,8,3,1,12
-Jenny Thompson,Estados Unidos,América,Natación,1992-2004,4,F,8,3,1,12
-Ryan Lochte,Estados Unidos,América,Natación,2004-2016,4,M,6,3,3,12
-Mark Spitz,Estados Unidos,América,Natación,1968-1972,2,M,9,1,1,11
-Matt Biondi,Estados Unidos,América,Natación,1984-1992,3,M,8,2,1,11
-Vera Cáslavská,Checoslovaquia,Europa,Gimnasia,1960-1968,3,F,7,4,0,11
-Viktor Chukarin,Unión Soviética,Europa,Gimnasia,1952-1956,2,M,7,3,1,11
-Allyson Felix,Estados Unidos,América,Atletismo,2004-2020,5,F,7,3,1,11
-Simone Biles,Estados Unidos,América,Gimnasia,2016-2024,3,F,7,2,2,11
-Carl Lewis,Estados Unidos,América,Atletismo,1984-1996,4,M,9,1,0,10
-Caeleb Dressel,Estados Unidos,América,Natación,2016-2024,3,M,9,1,0,10
-Aladár Gerevich,Hungría,Europa,Esgrima,1932-1960,8,M,7,1,2,10
-Akinori Nakayama,Japón,Asia,Gimnasia,1968-1972,2,M,6,2,2,10
-Vitaly Scherbo,Bielorrusia,Europa,Gimnasia,1992-1996,2,M,6,0,4,10
-Lisa Carrington,Nueva Zelanda,Oceanía,Piragüismo,2012-2024,4,F,8,0,1,9
-Jason Kenny,Reino Unido,Europa,Ciclismo,2008-2020,4,M,7,2,0,9
-Hubert Van Innis,Bélgica,Europa,Tiro con arco,1900-1920,6,M,6,3,0,9
-Valentina Vezzali,Italia,Europa,Esgrima,1996-2012,5,F,6,1,2,9
-Ray Ewry,Estados Unidos,América,Atletismo,1900-1908,3,M,8,0,0,8
-Usain Bolt,Jamaica,América,Atletismo,2008-2016,3,M,8,0,0,8
-Gert Fredriksson,Suecia,Europa,Piragüismo,1948-1960,4,M,6,1,1,8
-Danuta Kozák,Hungría,Europa,Piragüismo,2008-2020,4,F,6,1,1,8
-Reiner Klimke,Alemania,Europa,Equitación,1964-1988,7,M,6,0,2,8
-Svetlana Romáshina,Rusia,Europa,Natación sincronizada,2008-2020,4,F,7,0,0,7
-Chris Hoy,Reino Unido,Europa,Ciclismo,2000-2012,4,M,6,1,0,7
-Pál Kovács,Hungría,Europa,Esgrima,1936-1960,7,M,6,0,1,7
-Rudolf Kárpáti,Hungría,Europa,Esgrima,1948-1960,4,M,6,0,0,6
-Nedo Nadi,Italia,Europa,Esgrima,1912-1920,3,M,6,0,0,6
-Kristin Otto,Rep. Dem. Alemana,Europa,Natación,1988,1,F,6,0,0,6
-Amy Van Dyken,Estados Unidos,América,Natación,1996-2000,2,F,6,0,0,6
+name,continent,sport,participations,gender,medallas
+Michael Phelps,América,Natación,4,M,28
+Larisa Latynina,Europa,Gimnasia,3,F,18
+Nikolai Andrianov,Europa,Gimnasia,3,M,15
+Katie Ledecky,América,Natación,4,F,14
+Isabell Werth,Europa,Equitación,9,F,14
+Emma McKeon,Oceanía,Natación,3,F,14
+Boris Shakhlin,Europa,Gimnasia,3,M,13
+Edoardo Mangiarotti,Europa,Esgrima,7,M,13
+Paavo Nurmi,Europa,Atletismo,3,M,12
+Birgit Fischer,Europa,Piragüismo,7,F,12
+Sawao Kato,Asia,Gimnasia,3,M,12
+Jenny Thompson,América,Natación,4,F,12
+Ryan Lochte,América,Natación,4,M,12
+Mark Spitz,América,Natación,2,M,11
+Matt Biondi,América,Natación,3,M,11
+Vera Cáslavská,Europa,Gimnasia,3,F,11
+Viktor Chukarin,Europa,Gimnasia,2,M,11
+Allyson Felix,América,Atletismo,5,F,11
+Simone Biles,América,Gimnasia,3,F,11
+Carl Lewis,América,Atletismo,4,M,10
+Caeleb Dressel,América,Natación,3,M,10
+Aladár Gerevich,Europa,Esgrima,8,M,10
+Akinori Nakayama,Asia,Gimnasia,2,M,10
+Vitaly Scherbo,Europa,Gimnasia,2,M,10
+Lisa Carrington,Oceanía,Piragüismo,4,F,9
+Jason Kenny,Europa,Ciclismo,4,M,9
+Hubert Van Innis,Europa,Tiro con arco,6,M,9
+Valentina Vezzali,Europa,Esgrima,5,F,9
+Ray Ewry,América,Atletismo,3,M,8
+Usain Bolt,América,Atletismo,3,M,8
+Gert Fredriksson,Europa,Piragüismo,4,M,8
+Danuta Kozák,Europa,Piragüismo,4,F,8
+Reiner Klimke,Europa,Equitación,7,M,8
+Svetlana Romáshina,Europa,Natación sincronizada,4,F,7
+Chris Hoy,Europa,Ciclismo,4,M,7
+Pál Kovács,Europa,Esgrima,7,M,7
+Rudolf Kárpáti,Europa,Esgrima,4,M,6
+Nedo Nadi,Europa,Esgrima,3,M,6
+Kristin Otto,Europa,Natación,1,F,6
+Amy Van Dyken,América,Natación,2,F,6
