@@ -1,6 +1,9 @@
 <script>
   import * as d3 from "d3"
   import { onMount } from "svelte"
+  import demoData from "./data/athletes.csv"
+
+  console.log("demoData", demoData)
 
   /* Array donde guardaremos la data */
   let deportistas = []
