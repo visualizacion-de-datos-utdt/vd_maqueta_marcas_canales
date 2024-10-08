@@ -1,18 +1,18 @@
 <script>
   import * as d3 from "d3"
-  import { onMount } from "svelte"
+  import {onMount} from "svelte"
 
   /* Array donde guardaremos la data */
   let deportistas = []
 
-  /* 1. Escala para edades */
-  let grosor = d3.scaleLinear().range([5, 20])
+  /* 1. Escala para participaciones */
+  let grosorPartic = d3.scaleLinear().range([2, 18])
 
   /* 2. Escala para genero */
   let colorGenero = d3
     .scaleOrdinal()
     .domain(["F", "M"])
-    .range(["#ffc0cb", "#c0f9ff"])
+    .range(["#F7DDBA", "#E4D9F2"])
 
   /* 3. Escala para continentes */
   let colorContinentes = d3
@@ -20,86 +20,76 @@
     .domain(["América", "África", "Asia", "Europa", "Oceanía"])
     .range(["#ed334e", "#000000", "#fbb132", "#009fe3", "#00963f"])
 
-  /* 4. Escala para altura */
-  let radioAltura = d3.scaleRadial()
-
-  /* 5. Escala para medallas (ordinal) */
-  let colorMedalla = d3
-    .scaleOrdinal()
-    .domain(["Oro", "Plata", "Bronce"])
-    .range(["gold", "silver", "brown"])
+  /* 4. Area. Escala para diámetro del círculo */
+  let diametroTotal = d3.scaleRadial().range([0, 100])
 
   onMount(async () => {
-    d3.csv("./data/deportistas.csv", d3.autoType).then((data) => {
-      console.log(data)
 
-      /* Actualizamos dominio con la data de edad */
-      let minMaxEdad = d3.extent(data, (d) => d.edad)
-      grosor = grosor.domain(minMaxEdad)
+    /* Consumimos la data */
+    const data = await d3.csv("./data/athletes.csv", d3.autoType)
+    console.log("data", data)
 
-      /* Actualizamos dominio y rango con la data de altura */
-      let minMaxAltura = d3.extent(data, (d) => d.altura)
-      radioAltura = radioAltura.domain(minMaxAltura).range([25, 50])
+    /* Actualizamos dominio con la data de participaciones */
+    let minMaxParticipations = d3.extent(data, d => d.participations)
+    grosorPartic = grosorPartic.domain(minMaxParticipations)
 
-      deportistas = data
-    })
+    /* Actualizamos el dominio con la data de total de medallas */
+    let maxTotal = d3.max(data, d => d.total)
+    diametroTotal = diametroTotal.domain([0, maxTotal])
+
+    deportistas = data
   })
 
-  let deportistasFiltered = []
-  let continente = "Todos"
 
-  $: {
-    if (continente === "Todos") {
-      deportistasFiltered = deportistas
-    } else {
-      deportistasFiltered = deportistas.filter(
-        (d) => d.continente === continente,
-      )
-    }
-  }
 </script>
 
 <main>
   <div class="header">
-    <img src="/images/olympics-logo.png" width="100" alt="anillos" />
+    <img src="/images/logo_referencias.svg" width="190" alt="anillos" />
     <h3 class="headline">
-      <b>Triunfos Olímpicos</b>
-      Medallas, alturas y continentes
+      <b>Los reyes del oro</b>
+      Medallas, participaciones y dominio en distintos continentes
     </h3>
-    <p class="bajada">Explorando los logros olímpicos a través de datos</p>
+    <p class="bajada">
+      Los atletas con más medallas olímpicas de oro en los Juegos Olímpicos
+    </p>
+    <img class="referencias" src="/images/referencias.svg" width="490" alt="anillos" />
   </div>
 
   <div class="container">
-    <select bind:value={continente}>
-      <option value="Todos">Todos</option>
-      <option value="América">América</option>
-      <option value="África">África</option>
-      <option value="Asia">Asia</option>
-      <option value="Europa">Europa</option>
-      <option value="Oceanía">Oceanía</option>
-    </select>
 
     <!-- Conedor de las entidades -->
     <div class="container">
       <!-- Iteramos la data para visualizar c/ entidad -->
-      {#each deportistasFiltered as dep}
+      {#each deportistas as dep}
         <div class="person-container">
           <div
-            class="medal"
-            style="background-color: {colorMedalla(dep.medalla)}"
-          ></div>
-          <div
             class="person"
-            style="border-width: {grosor(dep.edad)}px; 
-        background-color:{colorGenero(dep.genero)}; 
-        width: {2 * radioAltura(dep.altura)}px; 
-        height: {2 * radioAltura(dep.altura)}px; 
-        border-color: {colorContinentes(dep.continente)}"
+            style="border-width: {grosorPartic(dep.participations)}px; 
+        background-color:{colorGenero(dep.gender)}; 
+        width: {diametroTotal(dep.total)}px; 
+        height: {diametroTotal(dep.total)}px; 
+        border-color: {colorContinentes(dep.continent)}"
           ></div>
-          <p class="name">
-            <b>{dep.nombre}</b>
+
+          <div class="medals-wrapper">
+            {#if dep.gold > 0}
+              <div class="medal gold">{dep.gold}</div>
+            {/if}
+            {#if dep.silver > 0}
+              <div class="medal silver">{dep.silver}</div>
+            {/if}
+            {#if dep.bronze > 0}
+              <div class="medal bronze">{dep.bronze}</div>
+            {/if}
+          </div>
+
+          <p class="atleta">
+            <b class="name">{dep.name}</b>
             <br />
-            {dep.continente}
+            {dep.country}
+            <br />
+            {dep.sport}
           </p>
         </div>
       {/each}
@@ -113,19 +103,19 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-top: 50px;
+    margin-top: 20px;
     margin-bottom: 80px;
   }
   .headline {
-    font-size: 30px;
+    font-size: 40px;
     line-height: 1.2;
     font-weight: normal;
     text-align: center;
     margin: 20px;
   }
   .bajada {
-    font-size: 18px;
-    font-weight: normal;
+    font-size: 24px;
+    font-weight: 300;
     text-align: center;
     margin: 10px;
   }
@@ -138,7 +128,7 @@
     align-items: end;
     margin: auto;
     flex-wrap: wrap;
-    max-width: 1000px;
+    max-width: 1020px;
     gap: 30px;
     margin-bottom: 100px;
   }
@@ -157,18 +147,47 @@
     box-sizing: border-box;
     background-color: pink;
   }
-  .medal {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background-color: gold;
-    margin: 5px 0;
+
+  .medals-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
   }
-  .name {
-    font-size: 14px;
+  .medal {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin: 5px 0;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .gold {
+    background-color: gold;
+  }
+  .silver {
+    background-color: silver;
+  }
+  .bronze {
+    background-color: #e08585;
+  }
+  .atleta {
+    font-size: 13px;
+    line-height: 1.3;
     color: rgb(65, 65, 65);
     font-weight: normal;
     text-align: center;
     margin-top: 5px;
+  }
+  .name {
+    text-transform: uppercase;
+  }
+  .referencias {
+    margin-top: 50px;
+    margin-bottom: 20px;
   }
 </style>
