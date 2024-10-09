@@ -7,6 +7,13 @@
 
 ![Final](thumbnail-2.png)
 
+### Datos
+```bash
+| src
+| -- data
+| ---- athletes.csv
+```
+
 ## Boceto
 ![Boceto](thumbnail.jpg)
 
