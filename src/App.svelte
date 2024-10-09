@@ -1,7 +1,7 @@
 <script>
   import * as d3 from "d3"
   import { onMount } from "svelte"
-  import atletas from "/src/data/athletes.csv"
+  import atletas from "data/athletes.csv"
   // import atletas from "data/athletes.json"
 
   console.log("atletas", atletas)
