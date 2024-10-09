@@ -1,6 +1,6 @@
 # VD | Maqueta marcas y canales
 
-### Visualización de datos cuantitativos, categóricos, ordinales y de intervalo con HTML, CSS, D3 y Svelte.
+### Visualización de datos de medallistas olímpicos (HTML, CSS, D3 y Svelte)
 
 ---
 
