@@ -12,14 +12,15 @@
 
   /* 2. Escala para medallas (cuantitativo > diámetro círculo) */
   const maxMedallas = d3.max(atletas, (d) => d.medallas)
-  const diamMedallas = d3.scaleRadial().domain([0, maxMedallas]).range([0, 100])
+  const diamMedallas = d3.scaleRadial()
+    .domain([0, maxMedallas]).range([0, 100])
 
-  /* 2. Escala para genero (categórico > color) */
+  /* 3. Escala para genero (categórico > color) */
   const colorGenero = d3.scaleOrdinal()
     .domain(["F", "M"])
     .range(["#F7DDBA", "#E4D9F2"])
 
-  /* 3. Escala para continentes (categórico > color)   */
+  /* 4. Escala para continentes (categórico > color)   */
   const colorContinentes = d3
     .scaleOrdinal()
     .domain(["América", "África", "Asia", "Europa", "Oceanía"])
@@ -49,20 +50,18 @@
     <div class="container">
       
       <!-- Iteramos la data para visualizar c/ entidad -->
-      {#each atletas as dep}
+      {#each atletas as atleta}
         <div class="person-container">
           <div
             class="person"
             style="
-              border-color: {colorContinentes(dep.continent)};
-              background-color:{colorGenero(dep.gender)}; 
-              width: {diamMedallas(dep.medallas)}px; 
-              height: {diamMedallas(dep.medallas)}px; 
-              border-width: {grosorPartic(dep.participations)}px; 
+              border-color: {colorContinentes(atleta.continent)};
+              background-color:{colorGenero(atleta.gender)}; 
+              width: {diamMedallas(atleta.medallas)}px; 
+              height: {diamMedallas(atleta.medallas)}px; 
+              border-width: {grosorPartic(atleta.participations)}px; 
             ">
-        </div>
-          <p class="nombre">{dep.name}</p>
-          <p class="deporte">{dep.sport}</p>
+          </div>
         </div>
       {/each}
       <!-- Fin iteración -->
