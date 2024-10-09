@@ -12,6 +12,7 @@
 | src
 | -- data
 | ---- athletes.csv
+| ---- athletes.json
 ```
 
 ## Boceto
