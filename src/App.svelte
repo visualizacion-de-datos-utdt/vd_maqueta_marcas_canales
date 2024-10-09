@@ -1,43 +1,30 @@
 <script>
   import * as d3 from "d3"
   import { onMount } from "svelte"
+  import atletas from "/src/data/athletes.csv"
 
-  /* Array donde guardaremos la data */
-  let deportistas = []
+  console.log("atletas", atletas)
 
-  /* 1. Escala para participaciones */
-  let grosorPartic = d3.scaleLinear().range([2, 18])
+  /* 1. Escala para participaciones (cuantitativo > grosor) */
+  const minMaxParticipations = d3.extent(atletas, (d) => d.participations)
+  let grosorPartic = d3.scaleLinear()
+    .domain(minMaxParticipations).range([2, 18])
 
-  /* 2. Escala para genero */
-  let colorGenero = d3
-    .scaleOrdinal()
+  /* 2. Escala para medallas (cuantitativo > diámetro círculo) */
+  const maxMedallas = d3.max(atletas, (d) => d.medallas)
+  const diamMedallas = d3.scaleRadial().domain([0, maxMedallas]).range([0, 100])
+
+  /* 2. Escala para genero (categórico > color) */
+  const colorGenero = d3.scaleOrdinal()
     .domain(["F", "M"])
     .range(["#F7DDBA", "#E4D9F2"])
 
-  /* 3. Escala para continentes */
-  let colorContinentes = d3
+  /* 3. Escala para continentes (categórico > color)   */
+  const colorContinentes = d3
     .scaleOrdinal()
     .domain(["América", "África", "Asia", "Europa", "Oceanía"])
     .range(["#ed334e", "#000000", "#fbb132", "#009fe3", "#00963f"])
 
-  /* 4. Area. Escala para diámetro del círculo */
-  let diamMedallas = d3.scaleRadial().range([0, 100])
-
-  onMount(async () => {
-    /* Consumimos la data */
-    const data = await d3.csv("./data/athletes.csv", d3.autoType)
-    console.log("data", data)
-
-    /* Actualizamos dominio con la data de participaciones */
-    let minMaxParticipations = d3.extent(data, (d) => d.participations)
-    grosorPartic = grosorPartic.domain(minMaxParticipations)
-
-    /* Actualizamos el dominio con la data de las medallas */
-    let maxMedallas = d3.max(data, (d) => d.medallas)
-    diamMedallas = diamMedallas.domain([0, maxMedallas])
-
-    deportistas = data
-  })
 </script>
 
 <main>
@@ -58,26 +45,29 @@
     />
   </div>
 
-  <div class="container">
     <!-- Conedor de las entidades -->
     <div class="container">
+      
       <!-- Iteramos la data para visualizar c/ entidad -->
-      {#each deportistas as dep}
+      {#each atletas as dep}
         <div class="person-container">
           <div
             class="person"
-            style="border-width: {grosorPartic(dep.participations)}px; 
-        background-color:{colorGenero(dep.gender)}; 
-        width: {diamMedallas(dep.medallas)}px; 
-        height: {diamMedallas(dep.medallas)}px; 
-        border-color: {colorContinentes(dep.continent)}"
-          ></div>
+            style="
+              border-color: {colorContinentes(dep.continent)};
+              background-color:{colorGenero(dep.gender)}; 
+              width: {diamMedallas(dep.medallas)}px; 
+              height: {diamMedallas(dep.medallas)}px; 
+              border-width: {grosorPartic(dep.participations)}px; 
+            ">
+        </div>
           <p class="nombre">{dep.name}</p>
           <p class="deporte">{dep.sport}</p>
         </div>
       {/each}
+      <!-- Fin iteración -->
+
     </div>
-  </div>
 </main>
 
 <style>
@@ -91,8 +81,8 @@
   }
   .headline {
     font-size: 40px;
+    font-weight: 300;
     line-height: 1.2;
-    font-weight: normal;
     text-align: center;
     margin: 20px;
   }
